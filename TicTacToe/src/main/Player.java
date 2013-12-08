@@ -35,4 +35,9 @@ public class Player {
 	public boolean isCPU(){
 		return cpu;
 	}
+	
+	public int[] getChoice(){
+		int[] choice = {0,0};
+		return choice;
+		}
 }

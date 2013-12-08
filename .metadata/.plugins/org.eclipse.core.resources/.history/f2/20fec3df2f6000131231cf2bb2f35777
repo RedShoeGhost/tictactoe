@@ -1,0 +1,73 @@
+package main;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Start extends Application {
+	public static void main(String[] args) {
+		launch(args);
+	}
+	//Fields
+	private Game game = new Game(this);
+	
+	//Properties
+	private Button[][] buttons = new Button[3][3];
+	
+	private Label label;
+
+	//Lifecycle Events
+	@Override
+	public void start(Stage primaryStage) {
+		primaryStage.setTitle("Tic-Tac-Toe");
+
+		GridPane grid = setGridpane();
+		label = new Label("Testadfsgasdfgsdfgh");
+		
+		VBox vBox = new VBox(10);
+		vBox.getChildren().add(grid);
+		vBox.getChildren().add(label);
+		
+		Scene scene = new Scene(vBox, 300, 275);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	//Methods
+	public void setButtonText(String text,int x, int y){
+		buttons[x][y].setText(text);
+	}
+	
+	private GridPane setGridpane(){
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				final int x = i;
+				final int y = j;
+				buttons[x][y] = new Button("");
+				buttons[x][y].setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						game.click(x, y);
+					}
+				});
+
+				grid.add(buttons[x][y], x, y);
+			}
+		}
+		
+		return grid;
+		
+	}
+
+}
