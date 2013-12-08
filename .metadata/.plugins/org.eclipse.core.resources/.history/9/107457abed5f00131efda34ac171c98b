@@ -1,0 +1,11 @@
+package main;
+
+public class Game {
+
+	private Start view;
+	
+	Game(Start view){
+		this.view = view;
+		
+	}
+}

@@ -1,0 +1,14 @@
+package main;
+
+public class Game {
+
+	private Start view;
+	
+	Game(Start view){
+		this.view = view;
+	}
+	
+	public void click() {
+		System.out.println("Button-Klick mit Hallo Welt!");
+	}
+}

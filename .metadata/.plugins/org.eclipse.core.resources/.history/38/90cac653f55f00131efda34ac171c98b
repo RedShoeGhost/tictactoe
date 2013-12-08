@@ -1,0 +1,39 @@
+package main;
+
+public class Game {
+
+	private Start view;
+	private Player player1;
+	private Player player2;
+	private Player currentPlayer;
+	private String[][] fields = new String[3][3];
+	private boolean running = false;
+
+	Game(Start view) {
+		this.view = view;
+		this.player1 = new Player("Player1", "X", "Player");
+		this.player2 = new Player("Player2", "Y", "Player");
+		this.currentPlayer = player1;
+		this.running = true;
+	}
+
+	public void click(int x, int y) {
+		if (this.running && !currentPlayer.isCPU() && isFieldFree(x, y)) {
+			setField(currentPlayer.getSymbol(), x, y);
+			switchPlayer();
+		}
+	}
+
+	private void switchPlayer() {
+		currentPlayer = (currentPlayer.equals(player1)) ? player2 : player1;
+	}
+
+	private boolean isFieldFree(int x, int y) {
+		return fields[x][y].equals(null);
+	}
+
+	private void setField(String symbol, int x, int y) {
+		fields[x][y] = symbol;
+		view.setButtonText(symbol, x, y);
+	}
+}
