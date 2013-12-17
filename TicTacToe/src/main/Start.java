@@ -6,12 +6,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,30 +23,45 @@ public class Start extends Application {
 
 	// Fields
 	private Game game;
+	private Stage stage;
+	private Scene sceneGame;
+	private Scene sceneOptions;
 
 	// Properties
 	private Button[][] buttons = new Button[3][3];
-
 	private Label label;
+	
+	private TextField Player1Name = new TextField("Spieler 1");
+	private TextField Player2Name = new TextField("Spieler 2");
+	private ChoiceBox Player1KI = new ChoiceBox();
+	private ChoiceBox Player2KI = new ChoiceBox();
 
 	// Lifecycle Events
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Tic-Tac-Toe");
-
-		MenuBar menuBar = setMenu();
-		GridPane grid = setGridpane();
-		label = new Label("");
+		stage = primaryStage;
+		stage.setTitle("Tic-Tac-Toe");
 
 		VBox vBox = new VBox(10);
+		MenuBar menuBar = setMenu();
 		vBox.getChildren().add(menuBar);
+		GridPane grid = setGridpane();
 		vBox.getChildren().add(grid);
+		label = new Label("");
+		// label.setAlignment(new Enumpo);
 		vBox.getChildren().add(label);
+		sceneGame = new Scene(vBox, 300, 275);
+		// sceneGame.getStylesheets().add(C:\\Users\\User\\Desktop\\test.css);
 
-		Scene scene = new Scene(vBox, 300, 275);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
+		VBox vBoxOptions = new VBox(10);
+		MenuBar menuBarOptions = setMenu();
+		vBoxOptions.getChildren().add(menuBarOptions);
+		GridPane gridOptions = setGridOptions();
+		vBoxOptions.getChildren().add(gridOptions);
+		sceneOptions = new Scene(vBoxOptions, 300, 275);
+
+		stage.setScene(sceneGame);
+		stage.show();
 		game = new Game(this);
 	}
 
@@ -74,7 +90,17 @@ public class Start extends Application {
 		MenuItem newGame = new MenuItem("New Game");
 		newGame.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
+				stage.setScene(sceneGame);
+				stage.show();
 				game.init();
+			}
+		});
+		MenuItem options = new MenuItem("Options");
+		options.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				stage.setScene(sceneOptions);
+				stage.show();
+				/* TODO ändern */game.init();
 			}
 		});
 		MenuItem exit = new MenuItem("Exit");
@@ -83,7 +109,7 @@ public class Start extends Application {
 				System.exit(0);
 			}
 		});
-		menuGame.getItems().addAll(newGame, exit);
+		menuGame.getItems().addAll(newGame, options, exit);
 		menuBar.getMenus().add(menuGame);
 
 		return menuBar;
@@ -114,7 +140,50 @@ public class Start extends Application {
 		}
 
 		return grid;
+	}
 
+	private GridPane setGridOptions() {
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(1);
+		grid.setVgap(1);
+
+		grid.add(Player1Name, 0, 0);
+		
+		grid.add(Player2Name, 1, 0);
+		
+		Player1KI = new ChoiceBox();
+		Player1KI.getItems().addAll("Player", "Easy", "Hard");
+		Player1KI.setValue("Player");
+		grid.add(Player1KI, 0, 1);
+		
+		Player2KI = new ChoiceBox();
+		Player2KI.getItems().addAll("Player", "Easy", "Hard");
+		Player2KI.setValue("Player");
+		grid.add(Player2KI, 1, 1);
+
+		return grid;
+	}
+
+	public String GetPlayerName(int id) {
+		switch (id) {
+		case 1:
+			return Player1Name.getText();
+		case 2:
+			return Player2Name.getText();
+		default:
+			return null;
+		}
+	}
+	public String GetPlayerKI(int id) {
+		switch (id) {
+		case 1:
+			return Player1KI.getValue().toString();
+		case 2:
+			return Player2KI.getValue().toString();
+		default:
+			return null;
+		}
 	}
 
 }

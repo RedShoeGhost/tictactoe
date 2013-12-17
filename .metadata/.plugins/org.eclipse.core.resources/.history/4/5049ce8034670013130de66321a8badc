@@ -1,0 +1,48 @@
+public class TestKi {
+	public static void main(String[] args) {
+		String[][] field = new String[3][3];
+		KI ki = new KI(0, "X");
+		KI ki1 = new KI(0, "O");
+		int[] turn = null;
+
+		for (int i = 0; i < 9; i++) {
+			if (i % 2 == 0) {
+				turn = ki.getTurn(field);
+				field[turn[0]][turn[1]] = "X";
+				draw(field);
+			} else {
+				turn = ki1.getTurn(field);
+				field[turn[0]][turn[1]] = "O";
+				draw(field);
+			}
+			if (isPlayerWon((i % 2 == 0) ? "X" : "O", field)) {
+				System.out.println("Win: " + ((i % 2 == 0) ? "X" : "O"));
+				break;
+			}
+		}
+
+	}
+
+	private static void draw(String[][] field) {
+		for (int x = 0; x < 3; x++) {
+			for (int y = 0; y < 3; y++) {
+				String c = (field[x][y] == null) ? "_" : field[x][y];
+				System.out.print(c + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	private static boolean isPlayerWon(String symbol, String[][] field) {
+		return (field[0][0] == symbol && field[0][1] == symbol && field[0][2] == symbol)
+				|| (field[1][0] == symbol && field[1][1] == symbol && field[1][2] == symbol)
+				|| (field[2][0] == symbol && field[2][1] == symbol && field[2][2] == symbol)
+				|| (field[0][0] == symbol && field[1][0] == symbol && field[2][0] == symbol)
+				|| (field[0][1] == symbol && field[1][1] == symbol && field[2][1] == symbol)
+				|| (field[0][2] == symbol && field[1][2] == symbol && field[2][2] == symbol)
+				|| (field[0][0] == symbol && field[1][1] == symbol && field[2][2] == symbol)
+				|| (field[2][0] == symbol && field[1][1] == symbol && field[0][2] == symbol);
+	}
+
+}

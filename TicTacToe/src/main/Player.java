@@ -4,7 +4,7 @@ public class Player {
 	private String name;
 	private String symbol;
 	private boolean cpu;
-	private String difficulty;
+	private KI ki;
 
 	Player(String name, String symbol, String difficulty) {
 		this.name = name;
@@ -13,10 +13,11 @@ public class Player {
 		switch (difficulty) {
 		case "Easy":
 			this.cpu = true;
-			this.difficulty = difficulty;
+			this.ki = new KI(0, symbol);
 			break;
 		case "Hard":
-			this.difficulty = difficulty;
+			this.cpu = true;
+			this.ki = new KI(1, symbol);
 			break;
 		default:
 			this.cpu = false;
@@ -36,8 +37,7 @@ public class Player {
 		return cpu;
 	}
 	
-	public int[] getChoice(){
-		int[] choice = {0,0};
-		return choice;
+	public int[] getTurn(String[][] field){
+		return this.ki.getTurn(field);
 		}
 }
