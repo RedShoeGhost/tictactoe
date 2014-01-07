@@ -12,6 +12,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -48,10 +50,8 @@ public class Start extends Application {
 		GridPane grid = setGridpane();
 		vBox.getChildren().add(grid);
 		label = new Label("");
-		// label.setAlignment(new Enumpo);
 		vBox.getChildren().add(label);
 		sceneGame = new Scene(vBox, 300, 275);
-		// sceneGame.getStylesheets().add(C:\\Users\\User\\Desktop\\test.css);
 
 		VBox vBoxOptions = new VBox(10);
 		MenuBar menuBarOptions = setMenu();
@@ -95,20 +95,26 @@ public class Start extends Application {
 				game.init();
 			}
 		});
+		newGame.setAccelerator(new KeyCodeCombination(KeyCode.F2));
+		
 		MenuItem options = new MenuItem("Options");
 		options.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
 				stage.setScene(sceneOptions);
 				stage.show();
-				/* TODO ändern */game.init();
+				game.init();
 			}
 		});
+		options.setAccelerator(new KeyCodeCombination(KeyCode.F3));
+		
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
 				System.exit(0);
 			}
 		});
+		exit.setAccelerator(new KeyCodeCombination(KeyCode.F4));
+		
 		menuGame.getItems().addAll(newGame, options, exit);
 		menuBar.getMenus().add(menuGame);
 
