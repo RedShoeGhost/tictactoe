@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.ImageIcon;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.GridPane;
@@ -43,6 +46,7 @@ public class Start extends Application {
 	public void start(Stage primaryStage) {
 		stage = primaryStage;
 		stage.setTitle("Tic-Tac-Toe");
+		stage.getIcons().add(new Image(("/Resources/TicTacToe_Icon.png")));
 
 		VBox vBox = new VBox(10);
 		MenuBar menuBar = setMenu();
